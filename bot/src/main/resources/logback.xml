@@ -1,0 +1,22 @@
+<configuration>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+
+    <if condition='isDefined("platform") &amp;&amp; property("platform").equals("LOC")'>
+        <then>
+            <include resource="log/logback-dev.xml"/>
+        </then>
+    </if>
+    <if condition='isDefined("platform") &amp;&amp; property("platform").equals("INT")'>
+        <then>
+            <include resource="log/logback-dev.xml"/>
+        </then>
+    </if>
+    <if condition='isDefined("platform") &amp;&amp; property("platform").equals("PRD")'>
+        <then>
+            <include resource="log/logback-dev.xml"/>
+        </then>
+    </if>
+
+</configuration>
