@@ -1,0 +1,10 @@
+# Une liste de fichiers de configuration ou temporaires
+# que vous vous voulez éviter de jamais versionner sous git
+# cf. https://git-scm.com/docs/gitignore
+.gradle/
+.m2/repository/
+/build/
+.idea/
+/manifests/
+target
+bot/target

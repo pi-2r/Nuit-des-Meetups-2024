@@ -1,0 +1,20 @@
+<title>La nuit des Meetups 2024</title>
+<html>
+<head>
+    <script
+            crossorigin
+            src="https://unpkg.com/tock-react-kit@latest/build/tock-react-kit-standalone.umd.js"
+    ></script>
+    <style>
+        body {
+            background-color: #50a8ff;
+        }
+    </style>
+</head>
+<body>
+<div id="chat"></div>
+<script>
+    TockReact.renderChat(document.getElementById('chat'), 'http://localhost:8080/io/app/nuitdesmeetups/web', '', {}, { disableSse: true });
+</script>
+</body>
+</html>
