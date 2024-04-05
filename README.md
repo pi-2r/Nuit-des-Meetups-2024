@@ -76,7 +76,7 @@ Dans ce projet et depuis votre terminal faite un mvn clean install, puis lancer 
 
 ## Se brancher à l'agent Amazon Bedrock
 
-Dans ce projet, allez dans le dossier kbAgent et suivez les instructions du README
+Dans ce projet, allez dans le dossier [kbAgent](https://github.com/pi-2r/Nuit-des-Meetups-2024/tree/main/kbAgent) et suivez les instructions du README
 
 ## Interroger le bot
 
