@@ -18,38 +18,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-        <kotlin>1.7.20</kotlin>
-        <tock>22.9.2</tock>
+        <kotlin>1.9.23</kotlin>
+        <coroutine>1.8.0</coroutine>
+        <tock>22.9.3</tock>
 
-        <slf4j>2.0.3</slf4j>
-        <logback>1.4.4</logback>
+        <slf4j>2.0.12</slf4j>
+        <logback>1.5.3</logback>
 
-        <kotlin-logging>3.0.3</kotlin-logging>
+        <kotlin-logging>3.0.5</kotlin-logging>
         <janino>3.1.9</janino>
 
-        <guava>31.1-jre</guava>
-        <jackson>2.13.4</jackson>
-        <jackson-module>2.13.4</jackson-module>
-        <retrofit>2.9.0</retrofit>
-        <okhttp>4.10.0</okhttp>
-        <vertx>4.3.4</vertx>
-        <kmongo>4.7.2</kmongo>
+        <guava>33.1.0-jre</guava>
+        <jackson>2.17.0</jackson>
+        <jackson-module>2.17.0</jackson-module>
+        <retrofit>2.10.0</retrofit>
+        <okhttp>4.12.0</okhttp>
+        <vertx>4.5.7</vertx>
+        <kmongo>4.11.0</kmongo>
         <batik>1.12</batik>
         <xmlgraphics-commons>2.3</xmlgraphics-commons>
         <bitwalker>1.21</bitwalker>
         <klaxon>5.6</klaxon>
-        <jsoup>1.12.1</jsoup>
-        <google-maps-services>0.9.0</google-maps-services>
         <commons-io>2.11.0</commons-io>
         <commons-csv>1.9.0</commons-csv>
         <poi-ooxml>5.2.3</poi-ooxml>
         <gson>2.8.6</gson>
         <gson-fire>1.8.4</gson-fire>
         <junit-jupiter>5.9.1</junit-jupiter>
-        <mockk>1.13.2</mockk>
+        <mockk>1.13.10</mockk>
         <assertj>3.23.1</assertj>
-
-        <aws.cloudwatch>1.11.674</aws.cloudwatch>
 
         <plugin.surefire>3.0.0-M5</plugin.surefire>
         <pulgin.failsafe>3.0.0-M3</pulgin.failsafe>
