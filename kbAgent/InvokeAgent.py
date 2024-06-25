@@ -1,3 +1,4 @@
+
 from boto3.session import Session
 from botocore.auth import SigV4Auth
 from botocore.awsrequest import AWSRequest
@@ -8,14 +9,13 @@ from requests import request
 import base64
 import io
 import sys
-import os
 
-#For this to run on a local machine in VScode, you need to set the AWS_PROFILE environment variable to the name of the profile/credentials you want to use. 
-#You also need to input your model ID near the bottom of this file.
+#For this to run on a local machine in VScode, you need to set the AWS_PROFILE environment variable to the name of the profile/credentials you want to use.
 
-#Configure the agent
-agentId = "CHANGE_AGENT_ID" #INPUT YOUR AGENT ID HERE
-agentAliasId = "CHANGE_ALIAS_ID" # Hits draft alias, set to a specific alias id for a deployed version
+#check for credentials
+#echo $AWS_ACCESS_KEY_ID
+#echo $AWS_SECRET_ACCESS_KEY
+#echo $AWS_SESSION_TOKEN
 
 #Configure aws profile and region
 os.environ["AWS_PROFILE"] = "CHANGE_AWS_PROFILE" #INPUT YOUR AWS PROFILE HERE
@@ -26,14 +26,14 @@ region = os.environ.get("AWS_REGION")
 llm_response = ""
 
 def sigv4_request(
-    url,
-    method='GET',
-    body=None,
-    params=None,
-    headers=None,
-    service='execute-api',
-    region=os.environ['AWS_REGION'],
-    credentials=None
+        url,
+        method='GET',
+        body=None,
+        params=None,
+        headers=None,
+        service='execute-api',
+        region=os.environ['AWS_REGION'],
+        credentials=Session().get_credentials().get_frozen_credentials()
 ):
     """Sends an HTTP request signed with SigV4
     Args:
@@ -48,6 +48,7 @@ def sigv4_request(
     Returns:
      The HTTP response
     """
+
     # sign request
     req = AWSRequest(
         method=method,
@@ -66,18 +67,15 @@ def sigv4_request(
         headers=req.headers,
         data=req.body
     )
-    
-    
+
+
 
 def askQuestion(question, url, endSession=False):
     myobj = {
-        "inputText": question,   
+        "inputText": question,
         "enableTrace": True,
         "endSession": endSession
     }
-    print("=====================")
-    print("Request: ", myobj)
-    print("=====================")
 
     # send request
     response = sigv4_request(
@@ -85,7 +83,7 @@ def askQuestion(question, url, endSession=False):
         method='POST',
         service='bedrock',
         headers={
-            'content-type': 'application/json', 
+            'content-type': 'application/json',
             'accept': 'application/json',
         },
         region=theRegion,
@@ -125,7 +123,7 @@ def decode_response(response):
         else:
             print(f"no bytes at index {idx}")
             print(split_response[idx])
-            
+
     last_response = split_response[-1]
     print(f"Lst Response: {last_response}")
     if "bytes" in last_response:
@@ -135,7 +133,7 @@ def decode_response(response):
         final_response = decoded.decode('utf-8')
     else:
         print("no bytes in last response")
-        part1 = string[string.find('finalResponse')+len('finalResponse":'):] 
+        part1 = string[string.find('finalResponse')+len('finalResponse":'):]
         part2 = part1[:part1.find('"}')+2]
         final_response = json.loads(part2)['text']
 
@@ -155,26 +153,28 @@ def decode_response(response):
 
 
 def lambda_handler(event, context):
+
     sessionId = event["sessionId"]
-    print(f"Session: {sessionId}")
     question = event["question"]
     endSession = False
-    
+
     print(f"Session: {sessionId} asked question: {question}")
-    
+
     try:
         if (event["endSession"] == "true"):
             endSession = True
     except:
         endSession = False
 
-
     url = f'https://bedrock-agent-runtime.{theRegion}.amazonaws.com/agents/{agentId}/agentAliases/{agentAliasId}/sessions/{sessionId}/text'
 
-    try: 
+
+    try:
         response, trace_data = askQuestion(question, url, endSession)
+
         return {
             "status_code": 200,
+            #"body": json.dumps({"response": response, "trace_data": trace_data})
             "body": json.dumps({"response": response, "trace_data": trace_data})
         }
     except Exception as e:
@@ -182,5 +182,3 @@ def lambda_handler(event, context):
             "status_code": 500,
             "body": json.dumps({"error": str(e)})
         }
-
-

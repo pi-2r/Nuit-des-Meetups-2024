@@ -25,7 +25,7 @@ def callAgent():
         # Parse the JSON string
         if response and 'body' in response and response['body']:
             response_data = json.loads(response['body'])
-            print(response_data['trace_data'])
+            print(response_data)
             return response_data['trace_data']
         else:
             print("Invalid or empty response received")
